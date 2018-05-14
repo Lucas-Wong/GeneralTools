@@ -16,7 +16,7 @@ class File_operation(object):
 
     names = ['iConn.CreateXmlTools.vshost.exe', 'AutoUpdater.dll', 'Newtonsoft.Json.dll',
                  'Oracle.ManagedDataAccess.dll', 'Renci.SshNet.dll', 'Renci.SshNet.xml', 'zxing.dll',
-                 'Images/ARX_HK.png']
+                 'Images/ARX_HK.png', 'Images/ARX_USA_201803.png']
 
     def __init__(self, path_name=r"http://172.16.1.81:8081/UpdateClient/", name_list=None):
         self.old_path_name = path_name
@@ -68,13 +68,18 @@ class File_operation(object):
         tree = ET.parse(os.getcwd() + os.sep + file_name + ".xml")
         root = tree.getroot()
 
-        for item in root.getchildren():
+        # for item in root.getchildren():
+        #     item.set("url", item.get('url').replace(self.old_path_name, path_name))
+        #
+        #     if item.get('path') in self.names:
+        #         root.remove(item)
+        for item in root.findall('file'):
             item.set("url", item.get('url').replace(self.old_path_name, path_name))
 
             if item.get('path') in self.names:
                 root.remove(item)
 
-        tree.write(os.getcwd() + os.sep + file_name + ".xml")
+        tree.write(os.getcwd() + os.sep + file_name + ".xml", encoding="utf-8")
 
 if __name__ == '__main__':
     pass
