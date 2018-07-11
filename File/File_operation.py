@@ -30,7 +30,7 @@ class File_operation(object):
         :param file_name_list:
         :return:
         """
-        print("glob".center(50, "="))
+        print("glob remove file state".center(50, "="))
         print("Current Working Directory is " + os.getcwd())
         files = []
 
@@ -45,7 +45,7 @@ class File_operation(object):
             else:
                 print(file)
 
-        print("glob".center(50, "="))
+        print("glob remove file end".center(50, "="))
 
     def change_file(self, path_name, file_name='AutoupdateService', file_type='xml'):
         """

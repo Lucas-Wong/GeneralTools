@@ -10,10 +10,10 @@
 from distutils.core import setup
 
 setup(
-    name= '',
+    name='',
     version='',
-    py_modules = '',
-    author= 'Lucas wong',
+    py_modules='',
+    author='Lucas wong',
     author_email='Lucaswong@163.com',
     url='',
     description='',
