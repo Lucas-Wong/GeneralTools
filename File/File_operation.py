@@ -19,10 +19,17 @@ class File_operation(object):
                  'Images/ARX_HK.png', 'Images/ARX_USA_201803.png']
 
     def __init__(self, path_name=r"http://172.16.1.81:8081/UpdateClient/", name_list=None):
+
         self.old_path_name = path_name
 
         if name_list is not None:
-            self.names = name_list
+            self.excluding_list = name_list
+
+    def update_path_name(self, path_name, name_list=None):
+        self.old_path_name = path_name
+
+        if name_list is not None:
+            self.names += name_list
 
     def remove_file(self, file_name_list):
         """
@@ -56,6 +63,7 @@ class File_operation(object):
         :return:
         """
         if file_type.strip().lower() == "xml":
+            # print(path_name)
             self.change_xml_file(file_name, path_name)
 
     def change_xml_file(self, file_name, path_name):
@@ -73,8 +81,11 @@ class File_operation(object):
         #
         #     if item.get('path') in self.names:
         #         root.remove(item)
+        # print(self.old_path_name)
+        # print(path_name)
         for item in root.findall('file'):
             item.set("url", item.get('url').replace(self.old_path_name, path_name))
+            # print(item.get("url"))
 
             if item.get('path') in self.names:
                 root.remove(item)
