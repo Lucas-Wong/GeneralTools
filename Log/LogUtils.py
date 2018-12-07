@@ -9,6 +9,7 @@
 import logging
 import time
 import logging.handlers
+import os
 
 rq = time.strftime('%Y%m%d', time.localtime(time.time()))
 
@@ -80,6 +81,29 @@ class Log2:
         logger.addHandler(self.__handler)
         logger.setLevel(logging.DEBUG)
         return logger
+
+class Log:
+
+    def __init__(self):
+        self.path = "./Log/"  # 定义日志存放路径
+        self.filename = self.path + rq + '.log'  # 日志文件名称
+        if not os.path.exists("./Log/"):
+            os.mkdir("./Log/") 
+
+        if not os.path.exists(self.filename):
+            with open(self.filename, "w") as fw:
+                pass
+
+    def WriteLog(self, e):
+        with open(self.filename, "a") as fw:
+            msg_error = "ERROR:{0}time: {1}{0}lineno: {2}{0}errorinfo: {3}{4}".format(
+                "\n",
+                time.ctime(),
+                e.__traceback__.tb_lineno,
+                e.args[0],
+                "\n\n\n"
+            )
+            fw.write(msg_error)
 
 if __name__ == '__main__':
     """
