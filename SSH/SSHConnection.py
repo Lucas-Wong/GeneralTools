@@ -44,6 +44,12 @@ class SSHConnection(object):
         # 将location.py 上传至服务器 /tmp/test.py
         sftp.put(local_path, target_path)
 
+    def download(self, local_path, target_path):
+        # 连接，上传
+        sftp = paramiko.SFTPClient.from_transport(self.__transport)
+        # 启动scp远程拷贝命令，实现将打包好的nginx日志复制到本地/home目录
+        child = sftp.spawn('/usr/bin/scp', [user + "@" + ip + ':/data/nginx_access.tar.gz', '/home'])
+
 if __name__ == '__main__':
     ssh = SSHConnection()
     ssh.connect()
